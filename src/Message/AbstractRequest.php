@@ -4,11 +4,13 @@ namespace Omnipay\Przelewy24\Message;
 
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
 use Psr\Http\Message\ResponseInterface;
+use Illuminate\Support\Facades\Session;
 
 abstract class AbstractRequest extends BaseAbstractRequest
 {
+    //protected $liveEndpoint = 'https://secure.przelewy24.pl/api/v1';
     protected $liveEndpoint = 'https://secure.przelewy24.pl/';
-    protected $testEndpoint = 'https://sandbox.przelewy24.pl/';
+    protected $testEndpoint = 'https://sandbox.przelewy24.pl/api/v1';
 
     /**
      * @return string
@@ -101,11 +103,15 @@ abstract class AbstractRequest extends BaseAbstractRequest
         $data['p24_merchant_id'] = $this->getMerchantId();
         $data['p24_pos_id'] = $this->getMerchantId();
 
+        $data['secretId'] = $this->getSecretId();
+        $data['User'] = $this->getPosId();
+        $data['sessionId'] = $this->getSessionId();
+
         return $this->httpClient->request(
             $method,
             $this->getEndpoint() . $endpoint,
-            array('Content-Type' => 'application/x-www-form-urlencoded'),
-            http_build_query($data, null, '&')
+            array('Content-Type' => 'application/json'),
+            http_build_query($data, "", '&')
         );
     }
 }

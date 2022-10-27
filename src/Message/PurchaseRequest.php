@@ -9,7 +9,7 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class PurchaseRequest extends AbstractRequest
 {
-    private static $apiVersion = '3.2';
+    private static $apiVersion = '1.0.16';
 
     public function getSessionId()
     {
@@ -62,19 +62,15 @@ class PurchaseRequest extends AbstractRequest
         $this->validate('sessionId', 'amount', 'currency', 'description', 'card', 'returnUrl', 'notifyUrl');
 
         $data = array(
-            'p24_session_id' => $this->getSessionId(),
-            'p24_amount' => $this->getAmountInteger(),
-            'p24_currency' => $this->getCurrency(),
-            'p24_description' => $this->getDescription(),
-            'p24_email' => $this->getCard()->getEmail(),
-            'p24_client' => $this->getCard()->getName(),
-            'p24_address' => $this->getCard()->getAddress1(),
-            'p24_zip' => $this->getCard()->getPostcode(),
-            'p24_city' => $this->getCard()->getCity(),
-            'p24_country' => $this->getCard()->getCountry(),
-            'p24_phone' => $this->getCard()->getPhone(),
-            'p24_url_return' => $this->getReturnUrl(),
-            'p24_url_status' => $this->getNotifyUrl(),
+            'merchantId' => $this->getmerchantId(),
+            'posId' => $this->getPosId(),
+            'sessionId' => $this->getSessionId(),
+            'amount' => $this->getAmountInteger(),
+            'currency' => $this->getCurrency(),
+            'description' => $this->getDescription(),
+            'email' => $this->getCard()->getEmail(),
+            'country' => $this->getCard()->getCountry(),
+            //'p24_phone' => $this->getCard()->getPhone(),
             'p24_sign' => $this->generateSignature(
                 $this->getSessionId(),
                 $this->getPosId(),
@@ -82,7 +78,8 @@ class PurchaseRequest extends AbstractRequest
                 $this->getCurrency(),
                 $this->getCrc()
             ),
-            'p24_api_version' => self::$apiVersion,
+            'urlReturn' => $this->getReturnUrl(),
+            'p24_url_status' => $this->getNotifyUrl(),
         );
 
         if (null !== $this->getChannel()) {
@@ -129,8 +126,8 @@ class PurchaseRequest extends AbstractRequest
      * @param $crc
      * @return string
      */
-    private function generateSignature($sessionId, $posId, $amount, $currency, $crc)
+    private function generateSignature(string $sessionId, int $posId, int $amount, string $currency, string $crc)
     {
-        return md5(sprintf('%s|%s|%s|%s|%s', $sessionId, $posId, $amount, $currency, $crc));
+        return hash(sprintf('%s|%s|%s|%s|%s', $sessionId, $posId, $amount, $currency, $crc));
     }
 }
