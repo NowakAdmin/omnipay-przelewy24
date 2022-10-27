@@ -71,7 +71,7 @@ class PurchaseRequest extends AbstractRequest
             'email' => $this->getCard()->getEmail(),
             'country' => $this->getCard()->getCountry(),
             //'p24_phone' => $this->getCard()->getPhone(),
-            'p24_sign' => $this->generateSignature(
+            'sign' => $this->generateSignature(
                 $this->getSessionId(),
                 $this->getPosId(),
                 $this->getAmountInteger(),
