@@ -1,7 +1,7 @@
 {
-  "name": "ticketswap/omnipay-przelewy24",
+  "name": "nowakadmin/omnipay-przelewy24",
   "type": "library",
-  "description": "Przelewy24 driver for the Omnipay payment processing library",
+  "description": "Przelewy24 driver for the Omnipay payment processing library Updated to new Przelewy24 api",
   "keywords": [
     "przelewy24",
     "gateway",
@@ -11,12 +11,12 @@
     "payment",
     "transfer"
   ],
-  "homepage": "https://github.com/ticketswap/omnipay-przelewy24",
+  "homepage": "https://github.com/nowakadmin/omnipay-przelewy24",
   "license": "MIT",
   "authors": [
     {
-      "name": "TicketSwap",
-      "email": "info@ticketswap.com"
+      "name": "NowakAdmin",
+      "email": "git@nowakadmin.com"
     }
   ],
   "autoload": {

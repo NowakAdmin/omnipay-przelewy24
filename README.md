@@ -8,14 +8,16 @@
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements Przelewy24 support for Omnipay.
 
-For more information about the Przelewy24 API, take a look at the [manual](http://www.przelewy24.pl/files/cms/13/przelewy24_specification.pdf)
+For more information about the Przelewy24 API, take a look at the [manual](https://developers.przelewy24.pl/index.php?pl)
+
+Package in early stage might not work for now.
 
 ## Install
 
 This gateway can be installed with [Composer](https://getcomposer.org/):
 
 ``` bash
-$ composer require ticketswap/omnipay-przelewy24
+$ composer require nowakadmin/omnipay-przelewy24
 ```
 
 ## Usage
@@ -36,6 +38,7 @@ use Omnipay\Omnipay;
 $gateway = Omnipay::create('Przelewy24');
 
 $gateway->initialize([
+
     'merchantId' => 'YOUR MERCHANT ID HERE',
     'posId'      => 'YOUR POS ID HERE',
     'crc'        => 'YOUR CRC KEY HERE',
@@ -44,15 +47,12 @@ $gateway->initialize([
 
 $params = array(
     'sessionId' => 2327398739,
-    'amount' => 12.34,
+    'amount' => 1234, //in groszy
     'currency' => 'PLN',
     'description' => 'Payment test',
-    'returnUrl' => 'www.your-domain.nl/return_here',
-    'notifyUrl' => 'www.your-domain.nl/notify_here',
-    'card' => array(
-        'email' => 'info@example.com',
-        'name' => 'My name',
-        'country' => 'NL',
+    'country' => "string <= 2 characters Default: PL ISO, e. ex. PL, DE etc. ",
+    'language' => "Default: pl one of this countries in ISO 639-1: bg, cs, de, en, es, fr, hr, hu, it, nl, pl, pt, se, sk",
+    'urlReturn' => 'www.your-domain.nl/return_here',
     ),
 );
 
@@ -76,7 +76,7 @@ $gateway->initialize([
     
 ```
 
-For a list of all the supported values for 'Channel' you can read the [przelewy24 documentation](http://www.przelewy24.pl/eng/storage/app/media/pobierz/Instalacja/przelewy24_specification.pdf)
+For a list of all the supported values for 'Channel' you can read the [przelewy24 documentation](https://developers.przelewy24.pl/index.php?pl)
 
 ## Support
 
@@ -99,7 +99,7 @@ $ composer test
 
 ## Security
 
-If you discover any security related issues, please email info@ticketswap.com instead of using the issue tracker.
+If you discover any security related issues, please email git@nowakadmin.com instead of using the issue tracker.
 
 ## Credits
 
