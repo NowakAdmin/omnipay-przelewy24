@@ -125,29 +125,4 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Przelewy24\Message\CompletePurchaseRequest', $parameters);
     }
-    /**
-     * @param  string $value
-     * @return $this
-     */
-    public function getSecretId($value)
-    {
-        return $this->getParameter('SecretId', $value);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCurrency()
-    {
-        return $this->getParameter('currency');
-    }
-
-    /**
-     * @param  string $value
-     * @return $this
-     */
-    public function setCurrency($value)
-    {
-        return $this->setParameter('currency', $value);
-    }
 }
