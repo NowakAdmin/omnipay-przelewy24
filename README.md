@@ -99,7 +99,7 @@ $ composer test
 
 ## Security
 
-If you discover any security related issues, please email github@nowakadmin.com instead of using the issue tracker.
+If you discover any security related issues, please email git@nowakadmin.com instead of using the issue tracker.
 
 ## Credits
 
